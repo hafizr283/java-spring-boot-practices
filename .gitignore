@@ -1,0 +1,33 @@
+# Maven build output
+**/target/
+
+# Java artifacts
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+
+# IDE settings
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*~
+
+# Local environment files
+.env
+.env.*
+!.env.example
