@@ -2,7 +2,7 @@ package com.example.service;
 
 import org.springframework.stereotype.Component;
 
-@Component("cardPayment")
+@Component("Card")
 public class CardPayment implements PaymentService {
     @Override
      public boolean processPayment(double amount){
