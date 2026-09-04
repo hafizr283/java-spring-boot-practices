@@ -9,5 +9,8 @@ public abstract class BaseCodeRunner implements CodeRunner {
         if (submission.getSourceCode() == null) {
             throw new EvaluationException("No code present");
         }
+        if (submission.getSourceCode().length() > 15)
+            throw new EvaluationException("Source code limit (15) exceeded");
     }
+
 }

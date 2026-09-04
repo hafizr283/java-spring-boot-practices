@@ -1,0 +1,147 @@
+================================================================================
+ONLINE JUDGE SUBMISSION ENGINE - 10 EASY & PRACTICAL TASKS
+================================================================================
+
+[✓] TASK 1: Add a New Language Runner (JavaCodeRunner) - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: Polymorphism, Inheritance (extends), Spring @Component
+* Status: COMPLETED
+* Implementation:
+  - Created `JavaCodeRunner.java` extending `BaseCodeRunner`.
+  - Annotated with `@Component("java")`.
+  - Verified in `Main.java` with Java submission.
+
+--------------------------------------------------------------------------------
+[✓] TASK 2: Add Input Validation to Submission (Encapsulation) - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: Encapsulation, Defensive Programming, Constructor Validation
+* Status: COMPLETED
+* Implementation:
+  - Added non-null/non-empty checks and positive time limit check in `Submission.java`.
+  - Verified error handling with `try-catch` in `Main.java`.
+
+--------------------------------------------------------------------------------
+[✓] TASK 3: Clean Console Output by Overriding toString() - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: OOP Method Overriding (@Override toString)
+* Status: COMPLETED
+* Implementation:
+  - Overrode `toString()` in `Verdict.java`.
+  - Overrode `toString()` in `Submission.java`.
+
+--------------------------------------------------------------------------------
+[✓] TASK 4: Add Max Code Size Check in BaseCodeRunner (Inheritance) - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: Code Reusability, Abstract Classes, Inheritance
+* Status: COMPLETED
+* Implementation:
+  - Added length limit check in `BaseCodeRunner.validateSecurity()`.
+  - Inherited and enforced across all language runners.
+
+--------------------------------------------------------------------------------
+[✓] TASK 5: Understand @Primary and @Qualifier in Spring - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: Spring Bean Resolution, @Primary, @Qualifier
+* Status: COMPLETED
+* Implementation:
+  - Configured `@Primary` on `PythonCodeRunner`.
+  - Injected primary `CodeRunner` into `JudgeEvaluationService`.
+
+--------------------------------------------------------------------------------
+[✓] TASK 6: Create a SubmissionHistoryService (Spring Dependency Injection) - COMPLETED
+--------------------------------------------------------------------------------
+* Concepts: Service Layer, Dependency Injection, ArrayList
+* Status: COMPLETED
+* Implementation:
+  - Created `SubmissionHistoryService.java` with `@Service`.
+  - Injected into `JudgeEvaluationService` constructor.
+  - Automatically records submissions in `validate()`.
+  - Formatted output via `printAllSubmissions()`.
+
+--------------------------------------------------------------------------------
+[ ] TASK 7: Simulate Realistic Time & Check Time Limit Exceeded (TLE) - PENDING
+--------------------------------------------------------------------------------
+* Concepts: Polymorphism, Conditional Logic, Business Rules
+* Goal: Make runners simulate actual run times and return TLE if too slow.
+
+Steps:
+1. In `PythonCodeRunner.java`, generate a simulated time (e.g. `1200` ms).
+2. Compare simulated time with `submission.getTimeLimitMs()`:
+   - If simulated time > time limit:
+     return `new Verdict("TIME_LIMIT_EXCEEDED", simulatedTime, 25, "Time limit exceeded");`
+   - Otherwise:
+     return `new Verdict("ACCEPTED", simulatedTime, 25, "Executed successfully");`
+3. Do something similar in `CppCodeRunner.java` with faster time (e.g. `150` ms).
+4. In `Main.java`, test Python submission with a limit of `500ms` vs `2000ms`.
+
+What you learn: How different polymorphic classes implement their own specialized logic.
+
+--------------------------------------------------------------------------------
+[ ] TASK 8: Create a Type-Safe VerdictStatus Enum - PENDING
+--------------------------------------------------------------------------------
+* Concepts: Java Enums, Type Safety
+* Goal: Replace error-prone Strings ("OK", "rejected") with a clean Enum.
+
+Steps:
+1. In package `com.example.model`, create `VerdictStatus.java`:
+   ```java
+   public enum VerdictStatus {
+       ACCEPTED,
+       WRONG_ANSWER,
+       TIME_LIMIT_EXCEEDED,
+       REJECTED
+   }
+   ```
+2. In `Verdict.java`, change `private final String status;` to
+   `private final VerdictStatus status;`.
+3. Update `Verdict` constructor and getter to use `VerdictStatus`.
+4. Update `CppCodeRunner`, `PythonCodeRunner`, and `JudgeEvaluationService` to use
+   `VerdictStatus.ACCEPTED`, `VerdictStatus.REJECTED`, etc.
+
+What you learn: Why enums are better than strings for fixed sets of states.
+
+--------------------------------------------------------------------------------
+[ ] TASK 9: Add Bean Lifecycle Callbacks (@PostConstruct & @PreDestroy) - PENDING
+--------------------------------------------------------------------------------
+* Concepts: Spring Bean Lifecycle, Resource Initialization & Cleanup
+* Goal: See when Spring creates beans and when it destroys them.
+
+Steps:
+1. In `JudgeEvaluationService.java`, add these two methods:
+   ```java
+   @jakarta.annotation.PostConstruct // or javax.annotation.PostConstruct
+   public void init() {
+       System.out.println("[LIFECYCLE] JudgeEvaluationService bean is ready to evaluate code!");
+   }
+
+   @jakarta.annotation.PreDestroy // or javax.annotation.PreDestroy
+   public void destroy() {
+       System.out.println("[LIFECYCLE] JudgeEvaluationService bean is shutting down. Clean up done.");
+   }
+   ```
+2. Run `Main.java` and observe in the console when these two messages print
+   (one at `new AnnotationConfigApplicationContext(...)`, and one at `context.close()`).
+
+What you learn: How Spring manages the full lifecycle of your objects.
+
+--------------------------------------------------------------------------------
+[ ] TASK 10: Count Total Submissions per Language (Static vs Instance) - PENDING
+--------------------------------------------------------------------------------
+* Concepts: Static variables vs Instance variables
+* Goal: Understand when to use `static` and when to use instance fields.
+
+Steps:
+1. In `CppCodeRunner.java`, add:
+   - `private static int cppCount = 0;`
+   - In `runCode()`, increment `cppCount++;`
+   - Add a static method `public static int getCppCount() { return cppCount; }`
+2. Do the same in `PythonCodeRunner.java` with `pythonCount`.
+3. In `Main.java`, run 2 C++ submissions and 1 Python submission.
+4. Print `CppCodeRunner.getCppCount()` and `PythonCodeRunner.getPythonCount()`.
+
+What you learn: Static variables belong to the class (shared across all instances),
+while normal fields belong to a single object instance.
+
+================================================================================
+END OF TASKS
+================================================================================

@@ -29,4 +29,10 @@ public class Verdict {
         return message;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Code Status : %s\n Execution Time : %s \n Memory Used : %d KB\n Verdict : %s",
+                getStatus(), getExecutionTimeMs(), getMemoryUsedKb(), getMessage());
+    }
+
 }
